@@ -1,0 +1,7 @@
+# Install PyTorch with CUDA 12.1 first:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+3lc-ultralytics
+umap-learn
+PyYAML
+tqdm
+pandas
