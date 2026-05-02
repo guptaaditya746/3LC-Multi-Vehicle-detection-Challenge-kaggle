@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment and secrets
+.env
+.env.*
+.kaggle/
+kaggle.json
+*.kaggle.json
+
+# 3LC local artifacts
+.3lc/
+.3lc-cache/
+3lc_cache/
+3lc-artifacts/
+
+# Data and generated outputs
+data/
+datasets/
+runs/
+weights/
+models/
+submissions/
+submission.csv
+*.pt
+*.onnx
+*.engine
+
+# Archives and large bundles
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
