@@ -1,0 +1,5 @@
+pandas
+PyYAML
+tqdm
+umap-learn
+3lc-ultralytics

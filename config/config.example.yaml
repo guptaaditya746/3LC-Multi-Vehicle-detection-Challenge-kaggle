@@ -1,0 +1,20 @@
+dataset_root: data
+train_images: data/train/images
+train_labels: data/train/labels
+val_images: data/val/images
+val_labels: data/val/labels
+test_images: data/test/images
+sample_submission: data/sample_submission.csv
+imgsz: 640
+model: yolov8n.yaml
+pretrained: false
+classes:
+  0: truck
+  1: car
+  2: van
+  3: bus
+three_lc:
+  project_name: 3lc-multi-vehicle-detection
+  train_table: vehicle_train
+  val_table: vehicle_val
+  image_embeddings_dim: 2

@@ -1,0 +1,1 @@
+experiment_id,date,git_commit,run_name,data_revision,train_table,val_table,imgsz,epochs,batch,seed,optimizer,lr,public_score,local_map50,notes
