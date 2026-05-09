@@ -16,6 +16,7 @@ ENV/
 # Environment and secrets
 .env
 .env.*
+config/config.yaml
 .kaggle/
 kaggle.json
 *.kaggle.json
@@ -33,7 +34,9 @@ runs/
 weights/
 models/
 submissions/
+predictions/
 submission.csv
+tables_used.txt
 *.pt
 *.onnx
 *.engine

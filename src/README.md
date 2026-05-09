@@ -1,11 +1,10 @@
 # Source Layout
 
-This repository starts with documentation and helper utilities first. Add reusable project code here as the implementation grows.
+Reusable project code lives here. The repository-level scripts in `scripts/`
+import these helpers directly, so the package does not need to be installed in
+editable mode for normal use.
 
-Recommended future modules:
+Current modules:
 
-- dataset registration helpers
-- training entrypoints
-- inference and submission builders
-- 3LC integration helpers
-- experiment utilities
+- `ua_detrac_starter.config` resolves config and dataset paths from repo root.
+- `ua_detrac_starter.tlc_compat` patches 3LC/Ultralytics prediction format drift.

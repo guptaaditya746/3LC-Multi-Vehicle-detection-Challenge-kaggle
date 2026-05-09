@@ -1,5 +1,5 @@
-# Copy this file to config/config.yaml if you need a private local override.
-# The tracked default workflow config is config/competition.yaml.
+# UA-DETRAC competition workflow config.
+# Paths are relative to the repository root unless absolute.
 
 paths:
   dataset_yaml: config/dataset.yaml
@@ -44,3 +44,14 @@ predict:
   batch: 1
   pipeline: memory
   pred_dir_name: predictions
+
+# CPU-only override example:
+# training:
+#   device: cpu
+#   epochs: 5
+#   batch_size: 8
+#   workers: 0
+# tlc:
+#   image_embeddings_dim: 0
+# predict:
+#   device: cpu
