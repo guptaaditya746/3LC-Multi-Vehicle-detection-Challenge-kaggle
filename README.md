@@ -17,6 +17,7 @@ make register-tables          # create/reuse 3LC train + val tables
 make train                    # train YOLOv8n from scratch
 make predict                  # write submissions/submission.csv
 make validate-submission
+make kaggle-submit            # validates again, then submits with Kaggle CLI
 ```
 
 All workflow commands use `config/competition.yaml` by default. Override with:
@@ -68,7 +69,14 @@ The old self-contained starter-kit files can remain in `data/competition_starter
 5. Run `make train`; weights are written to `runs/detect/<run_name>/weights/best.pt`.
 6. Run `make predict`; predictions are written to `submissions/submission.csv`.
 7. Run `make validate-submission` before uploading to Kaggle.
-8. Record experiments in `experiments/experiment_log.csv` and submissions in `experiments/submission_log.csv`.
+8. Run `make kaggle-submit KAGGLE_MESSAGE="exp001 baseline"` to validate again and upload.
+9. Record experiments in `experiments/experiment_log.csv` and submissions in `experiments/submission_log.csv`.
+
+If the Kaggle competition slug differs, override it:
+
+```bash
+make kaggle-submit KAGGLE_COMPETITION=your-competition-slug KAGGLE_MESSAGE="exp001 baseline"
+```
 
 ## Constraints
 

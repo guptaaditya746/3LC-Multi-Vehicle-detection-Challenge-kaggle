@@ -60,5 +60,6 @@ id,image_id,prediction_string
 1. Generate predictions from the latest approved experiment.
 2. Build `submission.csv`.
 3. Run the validator against `sample_submission.csv`.
-4. Log the submission in `experiments/submission_log.csv`.
-5. Upload to Kaggle and record the public score.
+4. Submit with `make kaggle-submit KAGGLE_MESSAGE="exp001 baseline"`.
+5. Log the submission in `experiments/submission_log.csv`.
+6. Record the public score.
