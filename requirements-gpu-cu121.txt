@@ -4,6 +4,7 @@
 numpy
 matplotlib
 pillow
+kaggle
 umap-learn
 PyYAML
 tqdm

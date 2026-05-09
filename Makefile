@@ -4,9 +4,11 @@ SAMPLE_SUBMISSION ?= data/competition_starter/sample_submission.csv
 SUBMISSION ?= submissions/submission.csv
 LABELS_DIR ?= data/competition_starter/data/train/labels
 CLASSES ?= truck,car,van,bus
+KAGGLE_COMPETITION ?= 3lc-multi-vehicle-detection-challenge
+KAGGLE_MESSAGE ?= $(shell git rev-parse --short HEAD 2>/dev/null || date +%Y-%m-%d) $(notdir $(SUBMISSION))
 SCRIPTS := $(wildcard scripts/*.py)
 
-.PHONY: install install-gpu-cu121 verify verify-setup service register-tables train predict validate-submission summarize-labels
+.PHONY: install install-gpu-cu121 verify verify-setup service register-tables train predict validate-submission kaggle-submit summarize-labels
 
 install:
 	$(PYTHON) -m pip install --upgrade pip
@@ -37,6 +39,11 @@ predict:
 
 validate-submission:
 	$(PYTHON) scripts/validate_submission.py --sample $(SAMPLE_SUBMISSION) --submission $(SUBMISSION)
+
+kaggle-submit: validate-submission
+	@command -v kaggle >/dev/null || { echo "ERROR: kaggle CLI not found. Install it with: $(PYTHON) -m pip install kaggle"; exit 1; }
+	@test -n "$(KAGGLE_COMPETITION)" || { echo "ERROR: set KAGGLE_COMPETITION=<competition-slug>"; exit 1; }
+	kaggle competitions submit -c "$(KAGGLE_COMPETITION)" -f "$(SUBMISSION)" -m "$(KAGGLE_MESSAGE)"
 
 summarize-labels:
 	$(PYTHON) scripts/summarize_yolo_dataset.py --labels $(LABELS_DIR) --classes "$(CLASSES)"

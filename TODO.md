@@ -15,6 +15,7 @@ Use this as the working backlog. Move useful findings into `experiments/experime
 - [ ] Train `exp001_baseline` with the tracked `config/competition.yaml`.
 - [ ] Generate `submissions/submission.csv` with `make predict`.
 - [ ] Validate with `make validate-submission`.
+- [ ] Submit with `make kaggle-submit KAGGLE_MESSAGE="exp001 baseline"`.
 - [ ] Review predictions in `notebooks/01_submission_review.ipynb`.
 - [ ] Log the run with `scripts/make_experiment_entry.py`.
 
