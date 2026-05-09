@@ -25,6 +25,9 @@ from ua_detrac_starter.config import config_path, load_config, resolve_repo_path
 from ua_detrac_starter.tlc_compat import apply_ultralytics_83_compat  # noqa: E402
 
 
+IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".bmp", ".webp")
+
+
 try:
     from tqdm import tqdm
 except ImportError:
@@ -73,13 +76,50 @@ def resolve_weights(cfg: dict) -> Path:
     )
 
 
-def find_image(test_dir: Path, image_id: str) -> Path | None:
-    raw = Path(image_id)
+def image_lookup_keys(value: str | Path) -> set[str]:
+    raw_name = Path(str(value).strip()).name
+    if not raw_name:
+        return set()
+
+    path = Path(raw_name)
+    stem = path.stem if path.suffix else raw_name
+    keys = {raw_name, stem}
+
+    if ".rf." in stem:
+        keys.add(stem.split(".rf.", 1)[0])
+
+    for key in list(keys):
+        for extension in IMAGE_EXTENSIONS:
+            encoded_extension = f"_{extension.lstrip('.')}"
+            if key.lower().endswith(encoded_extension):
+                base = key[: -len(encoded_extension)]
+                keys.add(base)
+                keys.add(f"{base}{extension}")
+
+    return {key.lower() for key in keys if key}
+
+
+def build_image_index(test_dir: Path) -> dict[str, Path]:
+    index: dict[str, Path] = {}
+    for image_path in sorted(test_dir.iterdir()):
+        if not image_path.is_file() or image_path.suffix.lower() not in IMAGE_EXTENSIONS:
+            continue
+        for key in image_lookup_keys(image_path.name):
+            index.setdefault(key, image_path)
+    return index
+
+
+def find_image(test_dir: Path, image_id: str, image_index: dict[str, Path]) -> Path | None:
+    for key in image_lookup_keys(image_id):
+        if key in image_index:
+            return image_index[key]
+
+    raw = Path(image_id.strip())
     if raw.suffix:
         direct = test_dir / raw.name
         return direct if direct.is_file() else None
 
-    for extension in (".jpg", ".jpeg", ".png", ".bmp", ".webp"):
+    for extension in IMAGE_EXTENSIONS:
         candidate = test_dir / f"{image_id}{extension}"
         if candidate.is_file():
             return candidate
@@ -133,13 +173,30 @@ def result_to_prediction_string(result) -> str:
 
 
 def image_pairs(test_dir: Path, image_ids: list[str]) -> list[tuple[str, Path]]:
+    image_index = build_image_index(test_dir)
     pairs: list[tuple[str, Path]] = []
+    missing: list[str] = []
     for image_id in image_ids:
-        path = find_image(test_dir, image_id)
+        path = find_image(test_dir, image_id, image_index)
         if path is not None:
             pairs.append((image_id, path))
+        else:
+            missing.append(image_id)
+
+    if missing:
+        print(
+            f"  WARNING: matched {len(pairs)} / {len(image_ids)} sample image_ids; "
+            f"{len(missing)} missing.",
+            file=sys.stderr,
+        )
+        print(f"  Missing examples: {', '.join(missing[:5])}", file=sys.stderr)
+
     if not pairs:
-        raise RuntimeError(f"No test images found under {test_dir}")
+        examples = ", ".join(path.name for path in sorted(test_dir.iterdir())[:5])
+        raise RuntimeError(
+            f"No sample image_ids matched files under {test_dir}. "
+            f"Example files: {examples}"
+        )
     return pairs
 
 
@@ -375,4 +432,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
