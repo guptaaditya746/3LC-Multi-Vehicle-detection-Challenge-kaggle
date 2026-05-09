@@ -1,4 +1,7 @@
 pandas
+numpy
+matplotlib
+pillow
 PyYAML
 tqdm
 umap-learn

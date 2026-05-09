@@ -1,0 +1,15 @@
+# YOLO dataset layout for Ultralytics and 3LC Table.from_yolo.
+# The raw competition starter data stays under data/competition_starter/.
+
+path: ../data/competition_starter
+train: data/train/images
+val: data/val/images
+test: data/test/images
+
+nc: 4
+names:
+  0: truck
+  1: car
+  2: van
+  3: bus
+
