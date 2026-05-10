@@ -4,7 +4,7 @@ SAMPLE_SUBMISSION ?= data/competition_starter/sample_submission.csv
 SUBMISSION ?= submissions/submission.csv
 LABELS_DIR ?= data/competition_starter/data/train/labels
 CLASSES ?= truck,car,van,bus
-KAGGLE_COMPETITION ?= 3lc-multi-vehicle-detection-challenge
+KAGGLE_COMPETITION ?= 3-lc-multi-vehicle-detection-challenge
 KAGGLE_MESSAGE ?= $(shell git rev-parse --short HEAD 2>/dev/null || date +%Y-%m-%d) $(notdir $(SUBMISSION))
 SCRIPTS := $(wildcard scripts/*.py)
 
