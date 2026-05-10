@@ -8,6 +8,9 @@ Use this as the working backlog. Move useful findings into `experiments/experime
 - [ ] Install the environment with `make install-gpu-cu121` or `make install`.
 - [ ] Run `make verify` and `make verify-setup`.
 - [ ] Open `notebooks/00_data_audit.ipynb` and record class counts plus obvious label issues.
+- [ ] Run `notebooks/03_validation_map_failure_analysis.ipynb` after the first training run.
+- [ ] Run `notebooks/04_label_quality_mining.ipynb` before the first 3LC cleanup pass.
+- [ ] Use `notebooks/05_run_comparison_action_plan.ipynb` before choosing the next run.
 - [ ] Register train/val tables with `make register-tables`.
 
 ## Baseline

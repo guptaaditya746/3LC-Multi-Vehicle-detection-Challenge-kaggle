@@ -43,7 +43,7 @@ validate-submission:
 kaggle-submit: validate-submission
 	@command -v kaggle >/dev/null || { echo "ERROR: kaggle CLI not found. Install it with: $(PYTHON) -m pip install kaggle"; exit 1; }
 	@test -n "$(KAGGLE_COMPETITION)" || { echo "ERROR: set KAGGLE_COMPETITION=<competition-slug>"; exit 1; }
-	kaggle competitions submit -c "$(KAGGLE_COMPETITION)" -f "$(SUBMISSION)" -m "$(KAGGLE_MESSAGE)"
+	kaggle competitions submit -c $(KAGGLE_COMPETITION) -f $(SUBMISSION) -m "$(KAGGLE_MESSAGE)"
 
 summarize-labels:
 	$(PYTHON) scripts/summarize_yolo_dataset.py --labels $(LABELS_DIR) --classes "$(CLASSES)"
